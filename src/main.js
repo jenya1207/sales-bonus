@@ -1,5 +1,4 @@
-const fs = require('fs');
-const path = require('path');
+
 /**
  * Функция для расчета выручки
  * @param purchase запись о покупке
@@ -130,17 +129,3 @@ function analyzeSalesData(data, options) {
     bonus: +seller.bonus.toFixed(2),
   }));
 }
-describe("Sales Analysis", () => {
-  let mainContent;
-
-  beforeAll(async () => {
-    jest.setTimeout(10000); // Увеличьте время ожидания до 10 секунд
-    try {
-      mainContent = fs.readFileSync(path.join(process.env.GITHUB_WORKSPACE, 'src', 'main.js'), 'utf8');
-    } catch (error) {
-      console.error("Ошибка чтения файла:", error);
-    }
-  });
-
-  // Здесь будут ваши тесты
-});
