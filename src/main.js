@@ -1,3 +1,5 @@
+const fs = require('fs');
+const path = require('path');
 /**
  * Функция для расчета выручки
  * @param purchase запись о покупке
@@ -45,9 +47,9 @@ function analyzeSalesData(data, options) {
   }
 
   // Проверка наличия опций
-  //if (typeof options !== "object" || options === null) {
-    //throw new Error("чего-то не хватает");
-  //}
+  if (typeof options !== "object" || options === null) {
+    throw new Error("чего-то не хватает");
+  }
 
   // Подготовка промежуточных данных для сбора статистики
   const sellerStats = data.sellers.map((seller) => ({
@@ -80,7 +82,7 @@ function analyzeSalesData(data, options) {
   data.purchase_records.forEach((record) => {
     const seller = sellerIndex[record.seller_id];
     if (!seller) {
-      //console.warn("Продавец не найден:", record.seller_id);
+      console.warn("Продавец не найден:", record.seller_id);
       return;
     }
     seller.sales_count += 1;
@@ -88,7 +90,7 @@ function analyzeSalesData(data, options) {
     record.items.forEach((item) => {
       const product = productIndex[item.sku];
       if (!product) {
-        //console.warn("Товар не найден:", item.sku);
+        console.warn("Товар не найден:", item.sku);
         return;
       }
       const revenue = calculateSimpleRevenue(item, product);
@@ -128,3 +130,17 @@ function analyzeSalesData(data, options) {
     bonus: +seller.bonus.toFixed(2),
   }));
 }
+describe("Sales Analysis", () => {
+  let mainContent;
+
+  beforeAll(async () => {
+    jest.setTimeout(10000); // Увеличьте время ожидания до 10 секунд
+    try {
+      mainContent = fs.readFileSync(path.join(process.env.GITHUB_WORKSPACE, 'src', 'main.js'), 'utf8');
+    } catch (error) {
+      console.error("Ошибка чтения файла:", error);
+    }
+  });
+
+  // Здесь будут ваши тесты
+});
