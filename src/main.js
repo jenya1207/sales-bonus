@@ -45,9 +45,9 @@ function analyzeSalesData(data, options) {
   }
 
   // Проверка наличия опций
-  if (typeof options !== "object" || options === null) {
-    throw new Error("чего-то не хватает");
-  }
+  //if (typeof options !== "object" || options === null) {
+    //throw new Error("чего-то не хватает");
+  //}
 
   // Подготовка промежуточных данных для сбора статистики
   const sellerStats = data.sellers.map((seller) => ({
@@ -80,7 +80,7 @@ function analyzeSalesData(data, options) {
   data.purchase_records.forEach((record) => {
     const seller = sellerIndex[record.seller_id];
     if (!seller) {
-      console.warn("Продавец не найден:", record.seller_id);
+      //console.warn("Продавец не найден:", record.seller_id);
       return;
     }
     seller.sales_count += 1;
@@ -88,7 +88,7 @@ function analyzeSalesData(data, options) {
     record.items.forEach((item) => {
       const product = productIndex[item.sku];
       if (!product) {
-        console.warn("Товар не найден:", item.sku);
+        //console.warn("Товар не найден:", item.sku);
         return;
       }
       const revenue = calculateSimpleRevenue(item, product);
