@@ -32,18 +32,18 @@ function calculateBonusByProfit(index, total, seller) {
 }
 
 function analyzeSalesData(data, options) {
-  // Проверка входных данных
-  if (
-    !data ||
-    !Array.isArray(data.sellers) ||
-    data.sellers.length === 0 ||
-    !Array.isArray(data.products) ||
-    data.products.length === 0 ||
-    !Array.isArray(data.purchase_records) ||
-    data.purchase_records.length === 0
-  ) {
-    throw new Error("Некорректные входные данные");
-  }
+    const { calculateRevenue, calculateBonus } = options;
+    // @TODO: Проверка входных данных
+    if (!data
+        || !Array.isArray(data.sellers)
+        || !Array.isArray(data.products)
+        || !Array.isArray(data.purchase_records)
+        || data.sellers.length === 0
+        || data.products.length === 0
+        || data.purchase_records.length === 0
+    ) {
+        throw new Error('Некорректные входные данные');
+    }
 
   // Проверка наличия опций
   if (typeof options !== "object" || options === null) {
